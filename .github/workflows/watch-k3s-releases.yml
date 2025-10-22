@@ -21,6 +21,8 @@ jobs:
 
       - name: Process K3s releases
         id: process-releases
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           # Get the last 10 K3s releases
           RELEASES=$(curl -sL https://api.github.com/repos/k3s-io/k3s/releases | jq -r '[.[] | select(.assets[] | length > 2)][0:10] | .[].tag_name')
@@ -89,6 +91,8 @@ jobs:
 
       - name: Create Releases
         if: steps.process-releases.outputs.has_releases == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
         # env:
         #   GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
