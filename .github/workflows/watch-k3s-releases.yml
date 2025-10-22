@@ -65,7 +65,7 @@ jobs:
           done
           
           if [ ${#RELEASES_TO_CREATE[@]} -gt 0 ]; then
-            echo "releases_to_create=$(printf '%s ' \"${RELEASES_TO_CREATE[@]}\")" >> $GITHUB_OUTPUT
+            echo "releases_to_create=$(printf '%s\n' "${RELEASES_TO_CREATE[@]}" | tr '\n' ' ' | sed 's/ $//')" >> $GITHUB_OUTPUT
             echo "has_releases=true" >> $GITHUB_OUTPUT
           else
             echo "has_releases=false" >> $GITHUB_OUTPUT
